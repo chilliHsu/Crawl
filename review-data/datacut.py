@@ -52,7 +52,6 @@ def main():
 
 	gamefiles = getAllFile()
 	stopWords = getStopWord()
-	first = True
 
 	for game in gamefiles:
 		positiveW = []
@@ -89,9 +88,8 @@ def main():
 							negativeCount[pos]+=1
 
 		# 這裡就是可以叫出第一款game的文字雲的地方0w0
-		if first:
-			WordCloud(positiveCount, positiveW)
-			first = False
+		WordCloud(positiveCount, positiveW,name+'_positive')
+		WordCloud(negativeCount, negativeW,name+'_negative')
 
 		writer = pd.ExcelWriter('./jiebaword/'+name+'.xls')
 		save_excel(positiveW,positiveCount,"positive",writer)
@@ -103,7 +101,7 @@ def main():
 	# print("-----------------------------------------------------")
 	# print("nagativeword",negativeW)
 
-def WordCloud(word_counts, words):
+def WordCloud(word_counts, words,sensitive):
 	# print(words)
 	import matplotlib.pyplot as plt 
 	from wordcloud import WordCloud 
@@ -127,7 +125,10 @@ def WordCloud(word_counts, words):
 	plt.imshow(my_wordcloud)
 	plt.axis("off")
 	#plt.show()
-	plt.savefig('./wordcloud/test.png')
+	if 'positive' in sensitive:
+		plt.savefig('./wordcloud/positive/'+sensitive+'.png')
+	elif 'negative' in sensitive:
+		plt.savefig('./wordcloud/negative/'+sensitive+'.png')
 
 if __name__ == '__main__':
     main()
