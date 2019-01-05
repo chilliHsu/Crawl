@@ -97,10 +97,6 @@ def main():
 		writer.save()
 		print(name,"ok!!")
 
-	# print("positiveword",positiveW)
-	# print("-----------------------------------------------------")
-	# print("nagativeword",negativeW)
-
 def WordCloud(word_counts, words,sensitive):
 	# print(words)
 	import matplotlib.pyplot as plt 
