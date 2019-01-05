@@ -29,10 +29,10 @@ def getReviewsList():
         print('Error')
     return(demjson.decode(result))
 
-appID_List = ['com.miHoYo.bh3tw']
+appID_List = ['com.bigbull.tdsgtw']
 
 """
-'com.nsplay.bbs.android','jp.konami.duellinks','com.elive.hunter.gp','com.foyo.WJZJ','com.linecorp.LGWPMT','com.gmail.app.nakayama7.hensaiHan','com.nexon.dynastywarriors','com.herogame.gplay.streetballtw','com.a.one.ss','com.bigbull.tdsgtw'
+'com.bigbull.tdsgtw'
 'com.miHoYo.bh3tw','com.icantw.wings','com.garena.game.kgtw','com.linecorp.LGFARM','com.enjoygame.jwstw','com.wepie.snakeoff','com.gamedreamer.rgdsjtw','com.nintendo.zara','com.linecorp.LGBB2','com.garena.game.botw'
 """
 
@@ -61,8 +61,8 @@ for appID in appID_List:
 
     dict = {"reviews" : AllReview,"Date":AllDate,"Score":AllScore } #save relevant data into dataframe
     save_df = pd.DataFrame(dict)
-    save_df['Date'] = pd.to_datetime(save_df['Date'])
-    save_df.sort_values(by='Date', inplace=True)
+    # save_df['Date'] = pd.to_datetime(save_df['Date'])
+    # save_df.sort_values(by='Date', inplace=True)
     if len(AllReview) == 800 :
         save_df.to_csv("./review-data/TOP10/"+appID+".csv",encoding='utf_8_sig') #將csv檔存在review-data資料夾中
         print("scraper over, We have ",appID," reviews")
