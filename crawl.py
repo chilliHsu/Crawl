@@ -31,30 +31,31 @@ def getReviewsList():
 
 
 
-appID = "jp.co.happyelements.toto"
+appID = "jp.pokemon.pokemonquest"
 lang = "zh-tw"
 sort = "gplay.sort.HELPFULNESS"
 AllReview = []
 AllDate = []
-AllRate = []
+AllScore = []
 
 for i in range(1,21):
     page = str(i)
-    #page =  "1"
+    #print(page)
     claim, method = crawl_setting('\"'+appID+'\"','\"'+lang+'\"', sort, page)
     writeNodeJS(claim, method)
     reviews = getReviewsList()
+    #print(len(reviews))
 
     for r in reviews:
         #print(r['text'])
         AllReview.append(r['text'])
         AllDate.append(r['date'])
-        AllRate.append(r['score'])
+        AllScore.append(r['score'])
 
 
-dict = {"reviews" : AllReview,"Date":AllDate,"Rate":AllRate }
+dict = {"reviews" : AllReview,"Date":AllDate,"Score":AllScore } #save relevant data into dataframe
 save_df = pd.DataFrame(dict)
-save_df.to_csv("./review-data/"+appID+".csv",encoding='utf_8_sig')
+save_df.to_csv("./review-data/"+appID+".csv",encoding='utf_8_sig') #將csv檔存在review-data資料夾中
         
 print("scraper over, We have ",len(AllReview)," reviews")
 
